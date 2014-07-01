@@ -228,7 +228,7 @@
         });
     };
 
-    // Return one NODE with or set all of the nodes WIDTH
+    // Return one NODE width or set all of the nodes WIDTH
     domManipulator.prototype.width = function(val)
     {
         if( val )
