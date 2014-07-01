@@ -7,6 +7,7 @@ $_li is a lightweight "jQuery" like dom library which is targeting only modern b
 
 Minified with uglifyjs: `uglifyjs $_li.js -o $_li.min.js`
 
+
 ## Init
 
 Just like jQuery:
