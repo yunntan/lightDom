@@ -3,7 +3,7 @@ $_li - Lightweight jQuery like library - for modern browsers only
 
 Minified version < 9KB
 
-$_li is a lightweight "jQuery" like dom library which is targeting only modern browsers including __iOS__ and __Android__ devices.
+$_li is a lightweight "jQuery" like dom library which is targeting only modern browsers including __iOS__  and __Android__ devices.
 
 Minified with uglifyjs: `uglifyjs $_li.js -o $_li.min.js`
 
