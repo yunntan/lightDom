@@ -6,6 +6,23 @@
 <body>
 
 <h1>$_li Test page</h1>
-
+    <p id="result">
+    </p>
 </body>
+    <script>
+        var result = $_li("#result");
+        
+        for( var i in domManipulator.prototype ){
+            var div= $_li("<div></div>");
+            var btn = $_li("<button>"+i+"</button>");
+            div.html(btn);
+            
+            (function(fct){
+                btn.bind("click", function(){
+                    
+                });
+            })(i);
+            $_li('body').append(div);
+        }
+    </script>
 </html>
