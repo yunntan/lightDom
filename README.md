@@ -1,4 +1,5 @@
--_li
+$_li
 ====
 
 Lightweight jQuery like library - modern browsers only
+
