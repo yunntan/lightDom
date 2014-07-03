@@ -3,7 +3,7 @@
 
     Global Object: $_li
  */
- (function(){
+ (function(window,document){
     // CustomEvent polyfill
     (function () {
         function CustomEvent ( event, params ) {
@@ -17,7 +17,8 @@
     })();
 
 
-    var is_chrome =  typeof window.chrome == "undefined" ? false : true;
+    // Only needed for the console css
+    var is_chrome = typeof window.chrome == "undefined" ? false : true;
     // Display color if available
     function customLog(text, css){
         if( is_chrome )
@@ -25,6 +26,7 @@
         else
             console.log(text);
     }
+
     // Just usefull for bindings :)
     var emptyFct = function(){};
 
@@ -78,10 +80,9 @@
         }
     };
 
-    // Figure out if we're on a touch device or not -> TODO: improve ?: see pb like android user agent not having android and devices having both click & touch
-    (function(){
-        $_li.isTouchDevice =  ('ontouchstart' in document.documentElement )
-    })();
+    // Figure out if we're on a touch device or not -> TODO: improve problem width devices having both click & touch
+    $_li.isTouchDevice =  ('ontouchstart' in document.documentElement )
+  
 
 
     // Selector / constuctor
@@ -89,7 +90,7 @@
         this.init(selector);
     }
 
-    // pass a paramter than can be wether a String, a domManipulator or DOM node
+    // pass a parameter than can be wether a String, a domManipulator or DOM node
     function getDOMFromParameter(selector)
     {
         if( selector instanceof domManipulator) {
@@ -320,7 +321,6 @@
                         height = parseInt(this.dom[0].currentStyle["height"]);
                 }
 
-            // console.log("Here with  =  "+width+" "+typeof width)
             return height;
         }
     };
@@ -442,4 +442,4 @@
             }
         });
     };
-})();
+})(window,document);

@@ -14,13 +14,8 @@
         
         var list = $_li("<ul></ul>")
         for( var i in result ){
-            var div= $_li("<div></div>");
-            var btn = $_li("<li>"+i+"</li>");
-            div.html(btn);
-            
-          
-
-            list.append(btn);
+            var row = $_li("<li>"+i+"</li>");  
+            list.append(row);
         }
         $_li('body').append(list);
     </script>
