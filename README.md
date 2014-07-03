@@ -11,8 +11,8 @@ Minified with uglifyjs: `uglifyjs $_li.js -o $_li.min.js`
 ## Init
 
 Just like jQuery:
- * Selector: $_li("selector") or $_li(element)
- * Creating a new object: $_li("<div></div>")
+ * Selector: `$_li("selector")` or `$_li(element)`
+ * Creating a new object: `$_li("<div></div>")`
 
 ## Global objects
 
