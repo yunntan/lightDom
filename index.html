@@ -5,23 +5,23 @@
     </head>
 <body>
 
-<h1>$_li Test page</h1>
+<h1>$_li Functions list page</h1>
     <p id="result">
     </p>
 </body>
     <script>
         var result = $_li("#result");
         
+        var list = $_li("<ul></ul>")
         for( var i in result ){
             var div= $_li("<div></div>");
-            var btn = $_li("<button>"+i+"</button>");
+            var btn = $_li("<li>"+i+"</li>");
             div.html(btn);
             
-            (function(fct){
-                btn.bind("click", function(){                    
-                });
-            })(i);
-            $_li('body').append(div);
+          
+
+            list.append(btn);
         }
+        $_li('body').append(list);
     </script>
 </html>

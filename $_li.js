@@ -1,7 +1,7 @@
 /*
-    Light wieght jQuery like dom lib
+    Light weight jQuery like dom lib
 
-    At the moment on the window object
+    Global Object: $_li
  */
  (function(){
     // CustomEvent polyfill
@@ -80,7 +80,7 @@
 
     // Figure out if we're on a touch device or not -> TODO: improve ?: see pb like android user agent not having android and devices having both click & touch
     (function(){
-        $_li.isTouchDevice =  ('ontouchstart' in document.documentElement && (uaChecker.android || uaChecker.iOS) )
+        $_li.isTouchDevice =  ('ontouchstart' in document.documentElement )
     })();
 
 
@@ -114,7 +114,10 @@
 
     // Init
     domManipulator.prototype.init =  function (selector) {  // Todo, does not create a node -> only select
-        this.dom = getDOMFromParameter(selector);
+        if( selector )
+            this.dom = getDOMFromParameter(selector);
+        else
+            this.dom = getDOMFromParameter('body');
     };
 
     // Browse each dom

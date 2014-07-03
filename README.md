@@ -12,7 +12,7 @@ Minified with uglifyjs: `uglifyjs $_li.js -o $_li.min.js`
 
 Just like jQuery:
  * Selector: $_li("selector") or $_li(element)
- * Creating a new object: $_li("HTML String")
+ * Creating a new object: $_li("<div></div>")
 
 ## Global objects
 
