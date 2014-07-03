@@ -3,6 +3,7 @@
 
     At the moment on the window object
  */
+ (function(){
     // CustomEvent polyfill
     (function () {
         function CustomEvent ( event, params ) {
@@ -15,11 +16,20 @@
         window.CustomEvent = CustomEvent;
     })();
 
-    // Just usefull sometimes :)
+
+    var is_chrome =  typeof window.chrome == "undefined" ? false : true;
+    // Display color if available
+    function customLog(text, css){
+        if( is_chrome )
+            console.log('%c'+text, css || '');
+        else
+            console.log(text);
+    }
+    // Just usefull for bindings :)
     var emptyFct = function(){};
 
     // Global object
-    $_li = function(selector) {
+    window["$_li"] = function(selector) {
         return new domManipulator(selector)
     };
 
@@ -34,7 +44,7 @@
             request.responseType = params.dataType || "";
         }
         catch(e){
-            tczLog("Could not set responseType", 'color:red');
+            customLog("Could not set responseType", 'color:red');
             needJSONParsing = (params.dataType || "") == "json";
         }
 
@@ -114,12 +124,12 @@
         }
     };
 
-    // Find nodes into a given one
+    // Find nodes into the first one of the elment
     domManipulator.prototype.find = function(selector){
         return $_li(this.dom[0].querySelector(selector));
     };
 
-    // Return parent node
+    // Return parent of the first node of the element
     domManipulator.prototype.parent = function(){
         return $_li(this.dom[0].parentNode);
     };
@@ -420,7 +430,7 @@
             }
 
             if( domManipulator.draggableElements.indexOf(this) != -1 ){
-                tczLog("Just changing values of draggable, not binding ", 'color: yellow');
+                customLog("Just changing values of draggable, not binding ", 'color: yellow');
             } else {
                 domManipulator.draggableElements.push(this);
                 document.addEventListener($_li.isTouchDevice ? 'touchstart' : 'mousedown', dragStart);
@@ -429,3 +439,4 @@
             }
         });
     };
+})();

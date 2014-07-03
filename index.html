@@ -12,14 +12,13 @@
     <script>
         var result = $_li("#result");
         
-        for( var i in domManipulator.prototype ){
+        for( var i in result ){
             var div= $_li("<div></div>");
             var btn = $_li("<button>"+i+"</button>");
             div.html(btn);
             
             (function(fct){
-                btn.bind("click", function(){
-                    
+                btn.bind("click", function(){                    
                 });
             })(i);
             $_li('body').append(div);

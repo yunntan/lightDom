@@ -16,6 +16,8 @@ Just like jQuery:
 
 ## Global objects
 
+* `CustomEvent` polyfill
+
 * $_li.Ajax
 * $_li.isTouchDevice
 
