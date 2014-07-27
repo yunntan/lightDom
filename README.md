@@ -9,7 +9,7 @@ Minified with uglifyjs: `uglifyjs lightDom.js nmf -o lightDom.min.js`
 
 ## Alias
 
-`lightDOM` or `LD`
+`lightDom` or `LD`
 
 ## Init
 
