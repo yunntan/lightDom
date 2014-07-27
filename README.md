@@ -1,25 +1,28 @@
-$_li - Lightweight jQuery like library - for modern browsers only
+lightDom - Lightweight jQuery like library - for modern browsers only
 ====
 
 Minified version < 9KB
 
-`$_li` is a lightweight "jQuery" like dom library which is targeting only modern browsers including __iOS__  and __Android__ devices.
+`lightDom` is a lightweight "jQuery" like dom library which is targeting only modern browsers including __iOS__  and __Android__ devices.
 
-Minified with uglifyjs: `uglifyjs $_li.js nmf -o $_li.min.js`
+Minified with uglifyjs: `uglifyjs lightDom.js nmf -o lightDom.min.js`
 
+## Alias
+
+`lightDOM` or `LD`
 
 ## Init
 
 Just like jQuery:
- * Selector: `$_li("selector")` or `$_li(element)`
- * Creating a new object: `$_li("<div></div>")`
+ * Selector: `lightDom("selector")` or `lightDom(element)`
+ * Creating a new object: `lightDom("<div></div>")`
 
 ## Global objects
 
 * `CustomEvent` polyfill
 
-* $_li.Ajax
-* $_li.isTouchDevice
+* lightDom.Ajax
+* lightDom.isTouchDevice
 
 ## Member functions
 
