@@ -21,8 +21,8 @@ Just like jQuery:
 
 * `CustomEvent` polyfill
 
-* lightDom.Ajax
-* lightDom.isTouchDevice
+* `lightDom.ajax`: make an Ajax request
+* `lightDom.isTouchDevice`: returns a boolean which indicates wether the devices has touch events or not
 
 ## Member functions
 
