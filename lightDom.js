@@ -1,7 +1,7 @@
 /*
     Light weight jQuery like dom lib
 
-    Global Object: $_li
+    Global Object: lightDom
  */
  (function(window,document){
     // CustomEvent polyfill
@@ -31,12 +31,12 @@
     var emptyFct = function(){};
 
     // Global object
-    window["$_li"] = function(selector) {
+    window["LD"] = window["lightDom"] = function(selector) {
         return new domManipulator(selector)
     };
 
     // Ajax request
-    $_li.ajax = function(params){
+    lightDom.ajax = function(params){
         var request = params.crossDomain ? createCORSRequest() : new XMLHttpRequest() ;
 
         request.open(params.type, params.url, params.async || true);
@@ -81,7 +81,7 @@
     };
 
     // Figure out if we're on a touch device or not -> TODO: improve problem width devices having both click & touch
-    $_li.isTouchDevice =  ('ontouchstart' in document.documentElement )
+    lightDom.isTouchDevice =  ('ontouchstart' in document.documentElement )
   
 
 
@@ -130,12 +130,12 @@
 
     // Find nodes into the first one of the elment
     domManipulator.prototype.find = function(selector){
-        return $_li(this.dom[0].querySelector(selector));
+        return lightDom(this.dom[0].querySelector(selector));
     };
 
     // Return parent of the first node of the element
     domManipulator.prototype.parent = function(){
-        return $_li(this.dom[0].parentNode);
+        return lightDom(this.dom[0].parentNode);
     };
 
     // Add a class
@@ -254,7 +254,7 @@
 
             function getWidthFromPecentage(el, val)
             {
-                var parentWidth = $_li(el.parentNode).width();
+                var parentWidth = lightDom(el.parentNode).width();
                 if( parentWidth != 0 )
                 {
                     return parseFloat(el.style.width) / 100 * parentWidth;
@@ -298,7 +298,7 @@
 
             function getHeightFromPecentage(el, val)
             {
-                var parentHeight = $_li(el.parentNode).height();
+                var parentHeight = lightDom(el.parentNode).height();
                 if( parentHeight != 0 )
                 {
                     return parseFloat(el.style.height) / 100 * parentHeight;
@@ -408,13 +408,13 @@
             {
                 if( _dragging == true) {
                     var parentPos = getPosition(parent);
-                    var x = $_li.isTouchDevice ? e.touches[0].clientX : ( e.x || e.clientX );
+                    var x = lightDom.isTouchDevice ? e.touches[0].clientX : ( e.x || e.clientX );
                     var pos = (x-parentPos.x - _startPositon.x);  // Post of the dragged element : mouse pos - parent post - drag start position
 
                     if( pos <= element.containment[0] )    // prevent dragging too far to the left
                         pos = element.containment[0];
-                    if ( pos >= (element.containment[2] - $_li(element).width()))    // prevent dragging too far to the right
-                        pos = (element.containment[2] - $_li(element).width());
+                    if ( pos >= (element.containment[2] - lightDom(element).width()))    // prevent dragging too far to the right
+                        pos = (element.containment[2] - lightDom(element).width());
 
                     element.style.left = pos+"px";  // Set the pos
                     element.onDrag(e, ui());
@@ -436,9 +436,9 @@
                 customLog("Just changing values of draggable, not binding ", 'color: yellow');
             } else {
                 domManipulator.draggableElements.push(this);
-                document.addEventListener($_li.isTouchDevice ? 'touchstart' : 'mousedown', dragStart);
-                document.addEventListener($_li.isTouchDevice ? 'touchend'   : 'mouseup',   dragEnd);
-                document.addEventListener($_li.isTouchDevice ? 'touchmove'  : 'mousemove', drag);
+                document.addEventListener(lightDom.isTouchDevice ? 'touchstart' : 'mousedown', dragStart);
+                document.addEventListener(lightDom.isTouchDevice ? 'touchend'   : 'mouseup',   dragEnd);
+                document.addEventListener(lightDom.isTouchDevice ? 'touchmove'  : 'mousemove', drag);
             }
         });
     };

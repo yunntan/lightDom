@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="./$_li.js"></script> 
+        <script type="text/javascript" src="./lightDom.min.js"></script> 
     </head>
 <body>
 
-<h1>$_li Functions list page</h1>
+<h1>lightDom Functions list page</h1>
     <p id="result">
     </p>
 </body>
     <script>
-        var result = $_li("#result");
+        var result = lightDom("#result");
         
-        var list = $_li("<ul></ul>")
+        var list = lightDom("<ul></ul>")
         for( var i in result ){
-            var row = $_li("<li>"+i+"</li>");  
+            var row = lightDom("<li>"+i+"</li>");  
             list.append(row);
         }
-        $_li('body').append(list);
+        lightDom('body').append(list);
     </script>
 </html>
