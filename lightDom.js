@@ -18,7 +18,7 @@
 
 
     // Only needed for the console css
-    var is_chrome = typeof window.chrome == "undefined" ? false : true;
+    var is_chrome = typeof window.chrome == "undefined";
     // Display color if available
     function customLog(text, css){
         if( is_chrome )
@@ -80,7 +80,7 @@
         }
     };
 
-    // Figure out if we're on a touch device or not -> TODO: improve problem width devices having both click & touch
+    // Figure out if we're on a touch device or not -> TODO: improve to fix problem with devices having both click & touch
     lightDom.isTouchDevice =  ('ontouchstart' in document.documentElement )
   
 
