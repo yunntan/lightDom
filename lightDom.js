@@ -117,7 +117,7 @@
                 return findMe;
         }
         else
-        if( selector.length ) // DOM nodes array passed in param
+        if( selector.length )   // DOM nodes array passed in param TODO: find a better way to check: typeof Array does not work, and Object.prototype.toString.call(o) === '[object Array]' neither
             return selector;
          else
              return [selector];  // Single dom node passed in param
@@ -142,7 +142,13 @@
 
     // Find nodes into the first one of the elment
     domManipulator.prototype.find = function(selector){
-        return lightDom(this.dom[0].querySelectorAll(selector));
+        var nodes = [];
+        this.each(function findSelected(){
+            var children = this.querySelectorAll(selector);
+            for( var i = 0 ; i < children.length ; i++)
+                nodes.push(children[i])
+        })
+        return lightDom(nodes);
     };
 
     // Return parent of the first node of the element
@@ -350,12 +356,4 @@
             top: top
         }
     };
-
-    // Bind hover in / hover out of an element
-   /* domManipulator.prototype.hover = function(hoverIn, hoverOut){
-        this.each(function bindMouseOverAndMouseOut(){
-            this.addEventListener("mouseover", hoverIn || emptyFct);
-            this.addEventListener("mouseout", hoverOut || emptyFct);
-        });
-    }; */
 })(window,document);
