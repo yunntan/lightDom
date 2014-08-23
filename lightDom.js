@@ -102,9 +102,9 @@
     // pass a parameter than can be wether a String, a domManipulator or DOM node
     function getDOMFromParameter(selector)
     {
-        if( selector instanceof domManipulator) {
+        if( selector instanceof domManipulator)
             return selector.dom;
-        }
+        
         // String == selector || HTML string
         if( typeof selector == "string") {
             var tmp = document.createElement("div");
@@ -117,7 +117,10 @@
                 return findMe;
         }
         else
-            return [selector];  // This is a DOM node passed in parameter
+        if( selector.length ) // DOM nodes array passed in param
+            return selector;
+         else
+             return [selector];  // Single dom node passed in param
     }
 
 
@@ -139,7 +142,7 @@
 
     // Find nodes into the first one of the elment
     domManipulator.prototype.find = function(selector){
-        return lightDom(this.dom[0].querySelector(selector));
+        return lightDom(this.dom[0].querySelectorAll(selector));
     };
 
     // Return parent of the first node of the element
