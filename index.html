@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="./lightDom.min.js"></script> 
+        <script type="text/javascript" src="./lightDom.js"></script> 
     </head>
 <body>
 
@@ -10,6 +10,16 @@
     </p>
 </body>
     <script>
+        // Extenstion demo
+        lightDom.extend({
+            "extendedFct": function(){
+                console.log(this);
+                console.log("Hello");
+            }
+        });
+
+
+        // just listing the member functions
         var result = lightDom("#result");
         
         var list = lightDom("<ul></ul>")
