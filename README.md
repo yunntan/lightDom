@@ -48,4 +48,3 @@ Just like jQuery:
 * height
 * outerHeight
 * position
-* hover
