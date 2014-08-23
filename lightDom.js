@@ -31,7 +31,8 @@
     var emptyFct = function(){};
 
     // Global object
-    window["LD"] = window["lightDom"] = function(selector) {
+
+    var lightDom = window["LD"] = window["lightDom"] = function(selector) {
         return new domManipulator(selector);
     };
 
@@ -41,7 +42,7 @@
         for( var i in  extendingObjs ){
             domManipulator.prototype[i] = extendingObjs[i];
         }        
-    }
+    };
 
 
     // Ajax request
@@ -102,9 +103,9 @@
     // pass a parameter than can be wether a String, a domManipulator or DOM node
     function getDOMFromParameter(selector)
     {
-        if( selector instanceof domManipulator) {
+        if( selector instanceof domManipulator)
             return selector.dom;
-        }
+        
         // String == selector || HTML string
         if( typeof selector == "string") {
             var tmp = document.createElement("div");
@@ -117,7 +118,10 @@
                 return findMe;
         }
         else
-            return [selector];  // This is a DOM node passed in parameter
+        if( selector.length )   // DOM nodes array passed in param TODO: find a better way to check: typeof Array does not work, and Object.prototype.toString.call(o) === '[object Array]' neither
+            return selector;
+         else
+             return [selector];  // Single dom node passed in param
     }
 
 
@@ -137,9 +141,15 @@
         }
     };
 
-    // Find nodes into the first one of the elment
+    // Find nodes child nodes from the selector
     domManipulator.prototype.find = function(selector){
-        return lightDom(this.dom[0].querySelector(selector));
+        var nodes = [];
+        this.each(function findSelected(){
+            var children = this.querySelectorAll(selector);
+            for( var i = 0 ; i < children.length ; i++)
+                nodes.push(children[i])
+        })
+        return lightDom(nodes);
     };
 
     // Return parent of the first node of the element
@@ -186,14 +196,14 @@
 
     // add css properties
     domManipulator.prototype.css = function(css, val){
-        if( typeof val == "string") // Single prop
+        if( typeof css == "string" )        // Single prop
             this.each(function setStye(){
-                this.style[css] = val;
+                this.style[css] = val.toString();
             });
         else if( typeof css == "object")    // prop dictionnary passed
             this.each(function setStyle(){
                 for(var i in css )
-                    this.style[i] = css[i];
+                    this.style[i] = css[i].toString();
             });
     };
 
@@ -346,109 +356,5 @@
             left:left,
             top: top
         }
-    };
-
-    // Bind hover in / hover out of an element
-    domManipulator.prototype.hover = function(hoverIn, hoverOut){
-        this.each(function bindMouseOverAndMouseOut(){
-            this.addEventListener("mouseover", hoverIn || emptyFct);
-            this.addEventListener("mouseout", hoverOut || emptyFct);
-        });
-    };
-
-
-    domManipulator.draggableElements = [];
-    // Draggable object --> Only on the X axis
-    domManipulator.prototype.draggable = function(params){
-        this.each(function bindDraggableEvents(){
-            var parent  = this.parentNode;   // Needed for relative dragging into the parent
-            var element = this;
-            element.onStart = params.start || emptyFct;
-            element.onDrag = params.drag ||  emptyFct;
-            element.onStop = params.stop || emptyFct;
-
-            this.style.position = "absolute";
-            var _dragging  = false;
-            var _startPositon = {};
-
-            element.containment = params.containment || [Number.NEGATIVE_INFINITY,0,Number.POSITIVE_INFINITY,0];    // Unlimited move on X
-
-            // return x,y position of the mouse in the element
-            function getPositionInClickedElement(e)
-            {
-                var x =0,y=0;
-                if ( typeof e.pageX != "undefined"  || typeof e.pageY != "undefined") {
-                    x = e.pageX;
-                    y = e.pageY;
-                }
-                else {
-                    x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-                    y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-                }
-                var pos = getPosition(element);
-
-                x -= pos.x; x = x < 0 ? 0  : x; // on some android e.pageX == 0 so we get a < 0 value
-                y -= pos.y; y = y < 0 ? 0  : y;
-                return  {   x:x, y:y  };
-            }
-
-            // Start dragging
-            function dragStart(e){
-                // For firefox
-                e.srcElement = e.srcElement || e.target;
-
-                if( e.srcElement == element ) { // Check if we actually selected the draggable element
-                    _startPositon = getPositionInClickedElement(e);
-                    _dragging = true;
-                    element.onStart(e, ui());
-                }
-            }
-
-            // End dragging
-            function dragEnd(e){
-                if( _dragging == true) {
-                    _dragging = false;
-                    element.onStop(e, ui());
-                }
-            }
-
-            // Dragging
-            function drag(e)
-            {
-                if( _dragging == true) {
-                    var parentPos = getPosition(parent);
-                    var x = lightDom.isTouchDevice ? e.touches[0].clientX : ( e.x || e.clientX );
-                    var pos = (x-parentPos.x - _startPositon.x);  // Post of the dragged element : mouse pos - parent post - drag start position
-
-                    if( pos <= element.containment[0] )    // prevent dragging too far to the left
-                        pos = element.containment[0];
-                    if ( pos >= (element.containment[2] - lightDom(element).width()))    // prevent dragging too far to the right
-                        pos = (element.containment[2] - lightDom(element).width());
-
-                    element.style.left = pos+"px";  // Set the pos
-                    element.onDrag(e, ui());
-                }
-            }
-
-            // return datas
-            function ui()
-            {
-                return {
-                    position: {
-                        left: parseFloat(element.style.left) || 0,
-                        top: parseFloat(element.style.top) || 0
-                    }
-                }
-            }
-
-            if( domManipulator.draggableElements.indexOf(this) != -1 ){
-                customLog("Just changing values of draggable, not binding ", 'color: yellow');
-            } else {
-                domManipulator.draggableElements.push(this);
-                document.addEventListener(lightDom.isTouchDevice ? 'touchstart' : 'mousedown', dragStart);
-                document.addEventListener(lightDom.isTouchDevice ? 'touchend'   : 'mouseup',   dragEnd);
-                document.addEventListener(lightDom.isTouchDevice ? 'touchmove'  : 'mousemove', drag);
-            }
-        });
     };
 })(window,document);

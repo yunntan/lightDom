@@ -1,13 +1,15 @@
 lightDom - Lightweight jQuery like library - for modern browsers only
 ====
 
-Minified version < 9KB
+Minified version < 6KB
 
 `lightDom` is a lightweight "jQuery" like dom library which is targeting only modern browsers including __iOS__  and __Android__ devices.
 
-Minified with uglifyjs: `uglifyjs lightDom.js nmf -o lightDom.min.js`
 
-## Alias
+Minified with uglifyjs: `uglifyjs lightDom.js -nmf -o lightDom.min.js`
+
+
+## Aliases
 
 `lightDom` or `LD`
 
@@ -23,6 +25,7 @@ Just like jQuery:
 
 * `lightDom.ajax`: make an Ajax request
 * `lightDom.isTouchDevice`: returns a boolean which indicates wether the devices has touch events or not
+* `lightDom.extend`: extend the lightDom object.
 
 ## Member functions
 
@@ -46,4 +49,3 @@ Just like jQuery:
 * outerHeight
 * position
 * hover
-* draggable
