@@ -2,7 +2,8 @@
 <html>
     <head>
         <script type="text/javascript" src="./lightDom.js"></script> 
-        <script type="text/javascript" src="./lightDom-draggable.js"></script> 
+        <script type="text/javascript" src="./plugins/lightDom.draggableX.js"></script> 
+        <script type="text/javascript" src="./plugins/lightDom.hover.js"></script> 
     </head>
 <body>
 
@@ -15,6 +16,10 @@
     </section>
 
     <div id="draggable" style="width: 30px; height: 30px; border: 1px solid black;"></div>
+
+    <div id="hoverable" style="border 1px solid black; height: 20px;">
+        <span id="hoverableContent" style="opacity: 0;"> Hello </span>
+    </div>  
  
 </body>
     <script>      
@@ -37,6 +42,13 @@
                 LD(this).css("background", "rgba(0,0,0,0")
             }
         });
+
+        LD("#hoverable").hover(function(){
+            LD(this).find("#hoverableContent").css("opacity", "1");
+        },
+        function(){
+            LD(this).find("#hoverableContent").css("opacity", "0");
+        })
 
     </script>
 </html>

@@ -349,10 +349,10 @@
     };
 
     // Bind hover in / hover out of an element
-    domManipulator.prototype.hover = function(hoverIn, hoverOut){
+   /* domManipulator.prototype.hover = function(hoverIn, hoverOut){
         this.each(function bindMouseOverAndMouseOut(){
             this.addEventListener("mouseover", hoverIn || emptyFct);
             this.addEventListener("mouseout", hoverOut || emptyFct);
         });
-    };
+    }; */
 })(window,document);
