@@ -186,14 +186,14 @@
 
     // add css properties
     domManipulator.prototype.css = function(css, val){
-        if( typeof val == "string") // Single prop
+        if( typeof css == "string" )        // Single prop
             this.each(function setStye(){
-                this.style[css] = val;
+                this.style[css] = val.toString();
             });
         else if( typeof css == "object")    // prop dictionnary passed
             this.each(function setStyle(){
                 for(var i in css )
-                    this.style[i] = css[i];
+                    this.style[i] = css[i].toString();
             });
     };
 
