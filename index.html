@@ -16,11 +16,6 @@
     </section>
 
     <div id="draggable" style="width: 30px; height: 30px; border: 1px solid black;"></div>
-
-    <div id="hoverable" style="border 1px solid black; height: 20px;">
-        <span id="hoverableContent" style="opacity: 0;"> Hello </span>
-        <span></span>
-    </div>  
  
 </body>
     <script>      
@@ -43,13 +38,6 @@
                 LD(this).css("background", "rgba(0,0,0,0")
             }
         });
-
-        LD("#hoverable").hover(function(){
-            LD(this).find("#hoverableContent").css("opacity", 1);
-        },
-        function(){
-            LD(this).find("#hoverableContent").css("opacity", 0);
-        })
 
     </script>
 </html>
