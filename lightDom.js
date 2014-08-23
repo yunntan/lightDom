@@ -359,7 +359,7 @@
 
     domManipulator.draggableElements = [];
     // Draggable object --> Only on the X axis
-    domManipulator.prototype.draggable = function(params){
+   /* domManipulator.prototype.draggable = function(params){
         this.each(function bindDraggableEvents(){
             var parent  = this.parentNode;   // Needed for relative dragging into the parent
             var element = this;
@@ -450,5 +450,5 @@
                 document.addEventListener(lightDom.isTouchDevice ? 'touchmove'  : 'mousemove', drag);
             }
         });
-    };
+    }; */
 })(window,document);

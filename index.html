@@ -2,23 +2,22 @@
 <html>
     <head>
         <script type="text/javascript" src="./lightDom.js"></script> 
+        <script type="text/javascript" src="./lightDom-draggable.js"></script> 
     </head>
 <body>
 
-<h1>lightDom Functions list page</h1>
+    <h1>lightDom Functions list page</h1>
     <p id="result">
     </p>
+
+    <section>
+
+    </section>
+
+    <div id="draggable" style="width: 30px; height: 30px; border: 1px solid black;"></div>
+ 
 </body>
-    <script>
-        // Extenstion demo
-        lightDom.extend({
-            "extendedFct": function(){
-                console.log(this);
-                console.log("Hello");
-            }
-        });
-
-
+    <script>      
         // just listing the member functions
         var result = lightDom("#result");
         
@@ -27,6 +26,17 @@
             var row = lightDom("<li>"+i+"</li>");  
             list.append(row);
         }
-        lightDom('body').append(list);
+        lightDom('section').append(list);
+
+        // Draggable demo
+        LD("#draggable").draggableX({
+            start: function(){
+                LD(this).css("background", "green")
+            },
+            stop: function(){
+                LD(this).css("background", "rgba(0,0,0,0")
+            }
+        });
+
     </script>
 </html>
