@@ -32,8 +32,17 @@
 
     // Global object
     window["LD"] = window["lightDom"] = function(selector) {
-        return new domManipulator(selector)
+        return new domManipulator(selector);
     };
+
+
+    // Let extend the LightDom object
+    lightDom.extend = function(extendingObjs){
+        for( var i in  extendingObjs ){
+            domManipulator.prototype[i] = extendingObjs[i];
+        }        
+    }
+
 
     // Ajax request
     lightDom.ajax = function(params){
