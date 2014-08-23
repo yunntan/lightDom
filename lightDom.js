@@ -140,7 +140,7 @@
         }
     };
 
-    // Find nodes into the first one of the elment
+    // Find nodes child nodes from the selector
     domManipulator.prototype.find = function(selector){
         var nodes = [];
         this.each(function findSelected(){
