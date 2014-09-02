@@ -193,8 +193,7 @@
         });
     };
 
-
-    // add css properties
+    // add css properties || return the computed value of a css property
     domManipulator.prototype.css = function(css, val){
         if( typeof css == "string" && val )        // Single prop
             this.each(function setStye(){
@@ -208,8 +207,6 @@
         else if( typeof css == "string" && typeof val == "undefined") { // asking for a value, return the value of the first element
             return getComputedStyle(this.dom[0]).getPropertyValue(css)
         }
-
-
     };
 
     // bind event(s) on each node
@@ -276,14 +273,9 @@
         else {
             var width = this.dom[0].clientWidth;
 
-            function getWidthFromPecentage(el, val)
-            {
+            function getWidthFromPecentage(el, val){
                 var parentWidth = lightDom(el.parentNode).width();
-                if( parentWidth != 0 )
-                {
-                    return parseFloat(el.style.width) / 100 * parentWidth;
-                }
-                return 0;
+                    return parentWidth != 0 ? parseFloat(el.style.width) / 100 * parentWidth : 0;    
             }
 
             if( this.dom[0].clientWidth == 0)
@@ -306,6 +298,7 @@
         }
     };
 
+    // return outerWidth: width + padding + border
     domManipulator.prototype.outerWidth = function(){
         return this.dom[0].offsetWidth;
     };
@@ -320,11 +313,9 @@
         {
             var height = this.dom[0].clientHeight;
 
-            function getHeightFromPecentage(el, val)
-            {
+            function getHeightFromPecentage(el, val){
                 var parentHeight = lightDom(el.parentNode).height();
-                if( parentHeight != 0 )
-                {
+                if( parentHeight != 0 ){
                     return parseFloat(el.style.height) / 100 * parentHeight;
                 }
                 return 0;
@@ -353,10 +344,17 @@
         return this.dom[0].offsetHeight;
     };
 
-    // Return top / left position of an element : TODO: works only for absolute / fixed elements
+    // Return top / left position of an element: TODO: this ignore positioning using the css transform
     domManipulator.prototype.position = function(){
-        var left = parseFloat(this.dom[0].style.left) || 0 ;
-        var top = parseFloat(this.dom[0].style.top)   || 0 ;
+        var top = 0, left = 0,
+            el = this.dom[0];
+
+        while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+            left += el.offsetLeft - el.scrollLeft;
+            top += el.offsetTop - el.scrollTop;
+            el = el.offsetParent;
+        }
+
         return{
             left:left,
             top: top

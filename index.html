@@ -18,7 +18,7 @@
 
     <div id="draggable" style="width: 30px; height: 30px; border: 1px solid black;"></div>
 
-    <div id="hoverable" style="width: 100px; padding: 5px; border: 1px solid black; text-align:center;">Hover me !</div>
+    <div id="hoverable" style="width: 100px; padding: 5px; border: 1px solid black; text-align:center; ">Hover me !</div>
  
 </body>
     <script>
@@ -34,11 +34,12 @@
 
         // Draggable demo
         LD("#draggable").draggableX({
-            start: function(){
-                LD(this).css("background", "green")
+            start: function(e, ui){
+                LD(this).css("background", "green");
             },
-            stop: function(){
-                LD(this).css("background", "rgba(0,0,0,0")
+            stop: function(e, ui){
+                LD(this).css("background", "rgba(0,0,0,0");
+                    console.log(ui)
             }
         });
 

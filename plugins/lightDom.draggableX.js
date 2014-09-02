@@ -39,7 +39,7 @@
 	            var parent  = this.parentNode;   // Needed for relative dragging into the parent
 	            var element = this;
 	            element.onStart = params.start || emptyFct;
-	            element.onDrag  = params.drag  ||  emptyFct;
+	            element.onDrag  = params.drag  || emptyFct;
 	            element.onStop  = params.stop  || emptyFct;
 
 	          //  this.style.position = "absolute";
@@ -102,8 +102,6 @@
 	                    if ( pos >= (element.containment[2] - lightDom(element).width()))    // prevent dragging too far to the right
 	                        pos = (element.containment[2] - lightDom(element).width());
 
-	                 //   element.style.left = pos+"px";  // Set the pos
-
 	                 	element.style.transform  = "translateX("+pos+"px)";
 	                 	element.style.webkitTransform  = "translateX("+pos+"px)"
 	                    element.onDrag(e, ui());
@@ -114,10 +112,7 @@
 	            function ui()
 	            {
 	                return {
-	                    position: {
-	                        left: parseFloat(element.style.left) || 0,
-	                        top: parseFloat(element.style.top)   || 0
-	                    }
+	                    position: getPosition(element)
 	                }
 	            }
 
