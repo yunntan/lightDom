@@ -148,7 +148,7 @@
             var children = this.querySelectorAll(selector);
             for( var i = 0 ; i < children.length ; i++)
                 nodes.push(children[i])
-        })
+        });
         return lightDom(nodes);
     };
 
@@ -196,20 +196,25 @@
 
     // add css properties
     domManipulator.prototype.css = function(css, val){
-        if( typeof css == "string" )        // Single prop
+        if( typeof css == "string" && val )        // Single prop
             this.each(function setStye(){
                 this.style[css] = val.toString();
             });
-        else if( typeof css == "object")    // prop dictionnary passed
+        else if( typeof css == "object" )    // prop dictionnary passed
             this.each(function setStyle(){
                 for(var i in css )
                     this.style[i] = css[i].toString();
             });
+        else if( typeof css == "string" && typeof val == "undefined") { // asking for a value, return the value of the first element
+            return getComputedStyle(this.dom[0]).getPropertyValue(css)
+        }
+
+
     };
 
     // bind event(s) on each node
-    domManipulator.prototype.bind = function(event, cb){
-        var splited = event.split(" ");
+    domManipulator.prototype.bind = function(eventsString, cb){
+        var splited = eventsString.split(" ");
         this.each(function bindEvent(){
             for(var i = 0 ; i < splited.length ; i++ )
                 this.addEventListener(splited[i], cb);
@@ -217,8 +222,8 @@
     };
 
     // unbind event(s) on each node
-    domManipulator.prototype.unbind = function(event, cb){
-        var splited = event.split(" ");
+    domManipulator.prototype.unbind = function(eventsString, cb){
+        var splited = eventsString.split(" ");
         this.each(function unbindEvent(){
             for(var i = 0 ; i < splited.length ; i++ )
                 this.removeEventListener(splited[i], cb);
@@ -350,8 +355,8 @@
 
     // Return top / left position of an element : TODO: works only for absolute / fixed elements
     domManipulator.prototype.position = function(){
-        var left = parseFloat(this.dom[0].style.left) ||0 ;
-        var top = parseFloat(this.dom[0].style.top) || 0 ;
+        var left = parseFloat(this.dom[0].style.left) || 0 ;
+        var top = parseFloat(this.dom[0].style.top)   || 0 ;
         return{
             left:left,
             top: top

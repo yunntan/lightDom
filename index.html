@@ -17,6 +17,8 @@
     </section>
 
     <div id="draggable" style="width: 30px; height: 30px; border: 1px solid black;"></div>
+
+    <div id="hoverable" style="width: 100px; padding: 5px; border: 1px solid black; text-align:center;">Hover me !</div>
  
 </body>
     <script>
@@ -38,6 +40,14 @@
             stop: function(){
                 LD(this).css("background", "rgba(0,0,0,0")
             }
+        });
+
+        // hover demo
+        LD("#hoverable").hover(function(){
+            LD(this).text("Hovered");
+        },
+        function(){
+            LD(this).text("Out");
         });
 
     </script>

@@ -4,17 +4,28 @@
 (function(){
 	var emptyFct = function(){};
 
+	// Store the draggable elements
 	var  draggableElements = [];
 
 
+	// return an elemnt position
 	function getPosition( el ) {
 	    var _x = 0;
 	    var _y = 0;
-	    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
-	        _x += el.offsetLeft - el.scrollLeft;
-	        _y += el.offsetTop - el.scrollTop;
-	        el = el.offsetParent;
-	    }
+	      
+        if( el.style.position == "absolute" ){
+		    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+		        _x += el.offsetLeft - el.scrollLeft;
+		        _y += el.offsetTop - el.scrollTop;
+		        el = el.offsetParent;
+		    }
+		}
+		else{
+			var boundingRect = el.getBoundingClientRect();
+			_y = boundingRect.top;
+			_x = boundingRect.left;
+		}   
+	   
 	    return { y: _y, x: _x };
 	}
 
@@ -31,7 +42,7 @@
 	            element.onDrag  = params.drag  ||  emptyFct;
 	            element.onStop  = params.stop  || emptyFct;
 
-	            this.style.position = "absolute";
+	          //  this.style.position = "absolute";
 	            var _dragging  = false;
 	            var _startPositon = {};
 
@@ -49,6 +60,7 @@
 	                    x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
 	                    y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
 	                }
+
 	                var pos = getPosition(element);
 
 	                x -= pos.x; x = x < 0 ? 0  : x; // on some android e.pageX == 0 so we get a < 0 value
@@ -81,7 +93,7 @@
 	            {
 	                if( _dragging == true) {
 	                	e.preventDefault();	// prevent from selecting text when dragging
-	                    var parentPos = getPosition(parent);
+	                    var parentPos = getPosition(parent); 
 	                    var x = lightDom.isTouchDevice ? e.touches[0].clientX : ( e.x || e.clientX );
 	                    var pos = (x-parentPos.x - _startPositon.x);  // Post of the dragged element : mouse pos - parent post - drag start position
 
@@ -90,7 +102,10 @@
 	                    if ( pos >= (element.containment[2] - lightDom(element).width()))    // prevent dragging too far to the right
 	                        pos = (element.containment[2] - lightDom(element).width());
 
-	                    element.style.left = pos+"px";  // Set the pos
+	                 //   element.style.left = pos+"px";  // Set the pos
+
+	                 	element.style.transform  = "translateX("+pos+"px)";
+	                 	element.style.webkitTransform  = "translateX("+pos+"px)"
 	                    element.onDrag(e, ui());
 	                }
 	            }
@@ -101,7 +116,7 @@
 	                return {
 	                    position: {
 	                        left: parseFloat(element.style.left) || 0,
-	                        top: parseFloat(element.style.top) || 0
+	                        top: parseFloat(element.style.top)   || 0
 	                    }
 	                }
 	            }
