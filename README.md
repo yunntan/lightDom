@@ -3,7 +3,11 @@ lightDom - Lightweight jQuery like library - for modern browsers only
 
 Minified version < 6KB
 
+
 `lightDom` is a lightweight "jQuery" like dom library which is targeting only modern browsers including __iOS__  and __Android__ devices.
+
+
+`lightDom` brings a complete set of DOM manipulating functions, while remaining light. It finds its place in the projects for which jQuery may be considered too heavy but a DOM library is also needed.
 
 
 Minified with uglifyjs: `uglifyjs lightDom.js -nmf -o lightDom.min.js`
