@@ -8,7 +8,7 @@
 	var  draggableElements = [];
 
 
-	// return an elemnt position
+	// Return an element position
 	function getPosition( el ) {
 	    var _x = 0;
 	    var _y = 0;

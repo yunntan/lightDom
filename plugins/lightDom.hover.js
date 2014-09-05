@@ -3,8 +3,10 @@
   lightDom.extend({
     "hover": function(hoverIn, hoverOut){
 		        this.each(function bindMouseOverAndMouseOut(){
-		            this.addEventListener("mouseover", hoverIn || function(){});
-		            this.addEventListener("mouseout", hoverOut || function(){});
+		        	if( hoverIn )
+		            	this.addEventListener("mouseover", hoverIn);
+		            if( hoverOut)
+		            	this.addEventListener("mouseout", hoverOut);
 		        });
 			}
    });	
