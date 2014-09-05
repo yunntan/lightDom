@@ -20,11 +20,11 @@
     // Only needed for the console css
     var is_chrome = typeof window.chrome == "undefined";
     // Display color if available
-    function customLog(text, css){
+    function customLog(data, css){
         if( is_chrome )
-            console.log('%c'+text, css || '');
+            console.log('%c'+data, css || '');
         else
-            console.log(text);
+            console.log(data);
     }
 
 
