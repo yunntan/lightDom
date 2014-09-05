@@ -117,7 +117,7 @@
 	            }
 
 	            if( draggableElements.indexOf(this) != -1 ){
-	                customLog("Just changing values of draggable, not binding ", 'color: yellow');
+	                console.log("Just changing values of draggable, not binding ");
 	            } else {
 	                draggableElements.push(this);
 	                document.addEventListener(lightDom.isTouchDevice ? 'touchstart' : 'mousedown', dragStart);

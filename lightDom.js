@@ -157,17 +157,20 @@
         return lightDom(this.dom[0].parentNode);
     };
 
-    // Add a class
+    // Add classes passed as parameter
     domManipulator.prototype.addClass =  function (newClassName) {
         this.each(function addClassToNode(){
-            this.className +=  " "+newClassName;
+            this.className = (this.className+" "+newClassName).replace(/^\s\s*/, '').replace(/\s\s*$/, ''); // Avoid spaces at beginning and end
         });
     };
 
-    // Remove a class
+    // Remove ONE class
     domManipulator.prototype.removeClass =  function (removeClassName) {
         this.each(function removeClassOnNode(){
-            this.className =  this.className.replace(removeClassName, "" );
+            if( this.className.indexOf(removeClassName+" ") != -1  ) // Secure in order to avoid replacing class that would have similar names
+                this.className =  this.className.replace(removeClassName+" ", "" );
+            if( this.className.indexOf(" "+removeClassName) != -1  )
+                 this.className =  this.className.replace(" "+removeClassName, "" );
         });
     };
 
