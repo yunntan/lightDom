@@ -27,11 +27,8 @@
             console.log(text);
     }
 
-    // Just usefull for bindings :)
-    var emptyFct = function(){};
 
     // Global object
-
     var lightDom = window["LD"] = window["lightDom"] = function(selector) {
         return new domManipulator(selector);
     };
@@ -118,10 +115,10 @@
                 return findMe;
         }
         else
-        if( selector.length )   // DOM nodes array passed in param TODO: find a better way to check: typeof Array does not work, and Object.prototype.toString.call(o) === '[object Array]' neither
-            return selector;
-         else
-             return [selector];  // Single dom node passed in param
+            if( selector.length )   // DOM nodes array passed in param TODO: find a better way to check: typeof Array does not work, and Object.prototype.toString.call(o) === '[object Array]' neither
+                return selector;
+             else
+                 return [selector];  // Single dom node passed in param
     }
 
 
@@ -175,8 +172,12 @@
     };
 
     // Check if first dom has a class
-    domManipulator.prototype.hasClass = function(className){
-        return this.dom[0].className.indexOf(className) != -1;
+    domManipulator.prototype.hasClass = function(selector){
+        var className = " " + selector + " ", i = 0, l = this.length; // from jQuery
+        for (; i < l; i++)
+            if (this[i].nodeType === 1 && (" " + this[i].className + " ").replace(rclass, " ").indexOf(className) >= 0)
+                return true;
+         return false;
     };
 
     // Return or set an attribute
