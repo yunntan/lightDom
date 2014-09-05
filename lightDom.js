@@ -98,8 +98,7 @@
     }
 
     // pass a parameter than can be wether a String, a domManipulator or DOM node
-    function getDOMFromParameter(selector)
-    {
+    function getDOMFromParameter(selector){
         if( selector instanceof domManipulator)
             return selector.dom;
         
@@ -124,7 +123,7 @@
 
 
     // Init
-    domManipulator.prototype.init =  function (selector) {  // Todo, does not create a node -> only select
+    domManipulator.prototype.init =  function (selector){  // Todo, does not create a node -> only select
         if( selector )
             this.dom = getDOMFromParameter(selector);
         else
@@ -132,7 +131,7 @@
     };
 
     // Browse each dom
-    domManipulator.prototype.each =  function (cb) {
+    domManipulator.prototype.each =  function (cb){
         for (var i = 0; i < this.dom.length; i++) {
             cb.apply(this.dom[i]);
         }
@@ -155,29 +154,26 @@
     };
 
     // Add classes passed as parameter
-    domManipulator.prototype.addClass =  function (newClassName) {
+    domManipulator.prototype.addClass =  function (newClassName){
         this.each(function addClassToNode(){
             this.className = (this.className+" "+newClassName).replace(/^\s\s*/, '').replace(/\s\s*$/, ''); // Avoid spaces at beginning and end
         });
     };
 
     // Remove ONE class
-    domManipulator.prototype.removeClass =  function (removeClassName) {
+    domManipulator.prototype.removeClass =  function (removeClassName){
         this.each(function removeClassOnNode(){
-            if( this.className.indexOf(removeClassName+" ") != -1  ) // Secure in order to avoid replacing class that would have similar names
-                this.className =  this.className.replace(removeClassName+" ", "" );
-            if( this.className.indexOf(" "+removeClassName) != -1  )
-                 this.className =  this.className.replace(" "+removeClassName, "" );
+            var classes = " "+this.className+" ";
+            if( classes.indexOf(removeClassName+" ") != -1  ) // Secure in order to avoid replacing class that would have similar names
+                this.className =  classes.replace(removeClassName+" ", "" ).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+            if( classes.indexOf(" "+removeClassName) != -1  )
+                 this.className =  classes.replace(" "+removeClassName, "" ).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
         });
     };
 
     // Check if first dom has a class
     domManipulator.prototype.hasClass = function(selector){
-        var className = " " + selector + " ", i = 0, l = this.length; // from jQuery
-        for (; i < l; i++)
-            if (this[i].nodeType === 1 && (" " + this[i].className + " ").replace(rclass, " ").indexOf(className) >= 0)
-                return true;
-         return false;
+        return (" " + this.dom[0].className + " ").replace(/[\t\r\n\f]/g, " ").indexOf(" " + selector + " ") >= 0;
     };
 
     // Return or set an attribute
@@ -191,7 +187,7 @@
     };
 
     // Remove an attribute
-    domManipulator.prototype.removeAttr = function(name) {
+    domManipulator.prototype.removeAttr = function(name){
         this.each(function removeAttributeFromNode(){
             this.removeAttribute(name);
         });
@@ -243,8 +239,7 @@
 
     // prepend to THE FIRST DOM of this object
     // Accept multiple args
-    domManipulator.prototype.prepend = function(stuffToPrepend)
-    {
+    domManipulator.prototype.prepend = function(stuffToPrepend){
         for(var j=0; j < arguments.length ; j++) {
             var doms = getDOMFromParameter(arguments[j]);
             for (var i = 0; i < doms.length; i++)
@@ -268,8 +263,7 @@
     };
 
     // Return one NODE width or set all of the nodes WIDTH
-    domManipulator.prototype.width = function(val)
-    {
+    domManipulator.prototype.width = function(val){
         if( val )
             this.each(function setWith(){
                 this.style.width = parseFloat(val).toString().length < val.toString().length ? val : val+"px";
