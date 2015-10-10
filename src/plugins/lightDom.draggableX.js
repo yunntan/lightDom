@@ -1,7 +1,7 @@
 // Extenstion demo
 // Implement X draggable 
 
-(function(){
+(function(document, lightDom){
 	var emptyFct = function(){};
 
 	// Store the draggable elements
@@ -58,7 +58,7 @@
 	                }
 	                else {
 	                    x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-	                    y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+	                    y = e.clientY + document.body.scrollTop  + document.documentElement.scrollTop;
 	                }
 
 	                var pos = getPosition(element);
@@ -102,8 +102,7 @@
 	                    if ( pos >= (element.containment[2] - lightDom(element).width()))    // prevent dragging too far to the right
 	                        pos = (element.containment[2] - lightDom(element).width());
 
-	                 	element.style.transform  = "translateX("+pos+"px)";
-	                 	element.style.webkitTransform  = "translateX("+pos+"px)"
+	                 	element.style.transform = element.style.webkitTransform = "translateX("+pos+"px)";
 	                    element.onDrag(e, ui());
 	                }
 	            }
@@ -121,11 +120,15 @@
 	            } else {
 	                draggableElements.push(this);
 	                document.addEventListener(lightDom.isTouchDevice ? 'touchstart' : 'mousedown', dragStart);
+					document.addEventListener(lightDom.isTouchDevice ? 'touchmove'  : 'mousemove', drag);
 	                document.addEventListener(lightDom.isTouchDevice ? 'touchend'   : 'mouseup',   dragEnd);
-	                document.addEventListener(lightDom.isTouchDevice ? 'touchmove'  : 'mousemove', drag);
+					if( lightDom.isTouchDevice){
+						document.addEventListener('touchleave', dragEnd);
+					}
+
 	            }
         	});
         }
     });
 
-})();		
+})(document, window['lightDom']);

@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script type="text/javascript" src="./lightDom.js"></script> 
-        <script type="text/javascript" src="./plugins/lightDom.draggableX.js"></script> 
-        <script type="text/javascript" src="./plugins/lightDom.hover.js"></script> 
+        <title>LD demo</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+
+        <script type="text/javascript" src="../src/lightDom.js"></script>
+        <script type="text/javascript" src="../src/plugins/lightDom.draggableX.js"></script>
+        <script type="text/javascript" src="../src/plugins/lightDom.hover.js"></script>
+        <script type="text/javascript" src="../src/$_alias.js"></script>
+
+
+        <!--
+        <script type="text/javascript" src="../build/ld-0.1.0.min.js"></script>
+        -->
+
 
     </head>
 <body>
@@ -27,10 +37,12 @@
         // just listing the member functions
         var result = lightDom("#result");
         
-        var list = lightDom("<ul></ul>")
+        var list = lightDom("<ul></ul>");
         for( var i in result ){
-            var row = lightDom("<li>"+i+"</li>");  
-            list.append(row);
+            if( typeof result[i] == 'function'){
+                var row = lightDom("<li>"+i+"</li>");
+                list.append(row);
+            }
         }
         lightDom('section').append(list);
 
@@ -40,7 +52,7 @@
                 LD(this).css("background", "green");
             },
             stop: function(e, ui){
-                LD(this).css("background", "rgba(0,0,0,0");
+                LD(this).css("background", "rgba(0,0,0,0)");
             }
         });
 

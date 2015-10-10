@@ -1,4 +1,4 @@
-lightDom - Lightweight jQuery like library - for modern browsers only
+lightDom - Lightweight Dom library - for modern browsers only
 ====
 
 Minified version < 6KB
@@ -10,18 +10,23 @@ Minified version < 6KB
 `lightDom` brings a complete set of DOM manipulating functions, while remaining light. It finds its place in the projects for which jQuery may be considered too heavy but a DOM library is also needed.
 
 
-Minified with uglifyjs: `uglifyjs lightDom.js -nmf -o lightDom.min.js`
+## Build
+
+Build using Grunt or uglifyjs. By default the alias to `$` is not included.
+  * `grunt default`: build core + plugins
+  * `grunt noPlugin`: includes only core
+  * Add `--with_dollar_alias` to include `$` alias.
 
 
 ## Aliases
 
-`lightDom` or `LD`
+`lightDom`,`LD` or optionnal `$`.
 
 ## Init
 
-Just like jQuery:
- * Selector: `lightDom("selector")` or `lightDom(element)`
- * Creating a new object: `lightDom("<div></div>")`
+Usage is similar to jQuery:
+ * Selector: `LD("selector")` or `LD(element)`
+ * Creating a new object: `LD("<div></div>")`
 
 ## Global objects
 
